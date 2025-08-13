@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "BattleRPG3D": {
+      "commandName": "Project"
+    },
+    "代码调试": {
+      "commandName": "Executable",
+      "executablePath": "C:\\DevelopTools\\Godot\\C#\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "commandLineArgs": "--path . --verbose",
+      "workingDirectory": "."
+    }
+  }
+}
