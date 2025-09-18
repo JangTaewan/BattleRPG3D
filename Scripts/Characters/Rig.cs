@@ -8,6 +8,7 @@ namespace BattleRPG3D.Scripts.Characters
     {
         [Export]
         public float AnimationSpeed = 10.0f;
+        // 实现动画的平滑过渡
         private string _runPath = "parameters/MoveSpace/blend_position";
         private float _runWeightTarget = -1.0f;
         private AnimationTree _animationTree;

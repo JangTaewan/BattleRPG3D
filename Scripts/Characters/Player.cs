@@ -38,7 +38,7 @@ namespace BattleRPG3D.Scripts.Characters
         public override void _PhysicsProcess(double delta)
         {
             FrameCameraRotation();
-            Vector3 velocity = Velocity;
+            var velocity = Velocity;
 
             // Add the gravity.
             if (!IsOnFloor())
@@ -51,7 +51,7 @@ namespace BattleRPG3D.Scripts.Characters
             {
                 velocity.Y = JumpVelocity;
             }
-
+            
             var direction = GetMovementDirection();
             _rig.UpdateAnimationTree(direction);
             if (direction != Vector3.Zero)
@@ -78,15 +78,11 @@ namespace BattleRPG3D.Scripts.Characters
                 Input.MouseMode = Input.MouseModeEnum.Visible;
             }
             //如果鼠标处于隐藏状态，则鼠标左右移动可以对应的旋转视角
-            if (Input.MouseMode == Input.MouseModeEnum.Captured)
-            {
-                if (@event is InputEventMouseMotion mouseMotion)
-                {
-                    //获取鼠标的相对位置并且乘以灵敏度来获取视角旋转的角度
-                    _look += -mouseMotion.Relative * MouseSensitivity;
-                    GD.Print(_look);
-                }
-            }
+            if (Input.MouseMode != Input.MouseModeEnum.Captured) return;
+            if (@event is not InputEventMouseMotion mouseMotion) return;
+            //获取鼠标的相对位置并且乘以灵敏度来获取视角旋转的角度
+            _look += -mouseMotion.Relative * MouseSensitivity;
+            GD.Print(_look);
         }
 
         private Vector3 GetMovementDirection()
@@ -94,7 +90,7 @@ namespace BattleRPG3D.Scripts.Characters
             // Get the input direction and handle the movement/deceleration.
             //读取输入的方向并且控制移动
             // As good practice, you should replace UI actions with custom gameplay actions.
-            Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
+            var inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
             //这里的 Normalized() 会把 inputDir 生成的三维向量归一化
             var inputVector = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();
             return _horizontalPivot.GlobalTransform.Basis * inputVector;
